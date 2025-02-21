@@ -1,31 +1,52 @@
-function predictHeartDisease() {
-    let age = document.getElementById("age").value;
-    let cholesterol = document.getElementById("cholesterol").value;
-    let bp = document.getElementById("bp").value;
+document.getElementById("healthForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent page refresh
 
-    if (!age || !cholesterol || !bp) {
-        alert("Please fill all fields");
+    // Capture user input
+    const age = document.getElementById("age").value;
+    const cholesterol = document.getElementById("cholesterol").value;
+    const bloodPressure = document.getElementById("bp").value;
+    const heartRate = document.getElementById("heartRate").value;
+    const ecg = document.getElementById("ecg").value;
+    const exerciseAngina = document.getElementById("exerciseAngina").value;
+
+    // Validate inputs
+    if (!age || !cholesterol || !bloodPressure || !heartRate || !ecg) {
+        alert("Please fill in all fields.");
         return;
     }
 
-    // Simulated prediction using a simple formula
-    let probability = 1 / (1 + Math.exp(-0.05 * age - 0.03 * cholesterol - 0.04 * bp + 5));
-    let prediction = probability > 0.5 ? "High Risk of Heart Disease" : "Low Risk of Heart Disease";
-    document.getElementById("result").innerText = prediction;
+    // Dummy logic for prediction (Replace with actual ML API call)
+    const riskScore = Math.random(); // Simulated risk score
+    const prediction = riskScore > 0.5 ? "High Risk of Heart Disease" : "Low Risk (Healthy)";
 
-    renderChart(probability);
-}
+    // Display prediction result
+    document.getElementById("predictionResult").innerText = `Prediction: ${prediction}`;
 
-function renderChart(probability) {
-    let ctx = document.getElementById("predictionChart").getContext("2d");
-    new Chart(ctx, {
+    // Update the chart with new data
+    updateChart(riskScore);
+});
+
+// Function to update the chart dynamically
+function updateChart(riskScore) {
+    const ctx = document.getElementById("predictionChart").getContext("2d");
+
+    // Destroy the previous chart if it exists
+    if (window.myChart) {
+        window.myChart.destroy();
+    }
+
+    window.myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
-            labels: ["Risk", "No Risk"],
+            labels: ["Risk Score", "Remaining"],
             datasets: [{
-                data: [probability * 100, (1 - probability) * 100],
-                backgroundColor: ["red", "green"]
+                data: [riskScore * 100, (1 - riskScore) * 100],
+                backgroundColor: ["#ff0000", "#00ff00"],
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
         }
     });
 }
