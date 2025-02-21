@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Metrics Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./asset/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Health Metrics Form</h2>
+      <label for="age">Age:</label>
+      <input type="number" id="age" placeholder="Enter Age" required>
+      <label for="cholesterol">Cholesterol:</label>
+      <input type="number" id="cholesterol" placeholder="Enter Cholesterol Level" required>
+      <label for="bp">Blood Pressure:</label>
+      <input type="number" id="bp" placeholder="Enter Blood Pressure" required>
+      <button onclick="predictHeartDisease()">Predict</button>
+      <h2 id="result"></h2>
+      <canvas id="predictionChart"></canvas>
+      <p id="result"></p>
+    </div>
+
+    <script src="./asset/js/script.js"></script>
+  </body>
+</html>
